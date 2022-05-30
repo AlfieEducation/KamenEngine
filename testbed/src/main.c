@@ -1,22 +1,17 @@
 #include <core/logger.h>
 #include <core/asserts.h>
-
-// TODO: Just test of new platform realization
-#include <platform/platform.h>
+#include <core/application.h>
 
 int main(void) {
-    KFATAL("A test massege: %f", 3.14f);
-    KERROR("A test massege: %f", 3.14f);
-    KWARN("A test massege: %f", 3.14f);
-    KINFO("A test massege: %f", 3.14f);
-    KTRACE("A test massege: %f", 3.14f);
+    application_config config;
+    config.start_pos_x = 100;
+    config.start_pos_y = 100;
+    config.start_width = 1200;
+    config.start_height = 720;
+    config.name = "Kamen Engine Sandbox";
 
-    platform_state state; 
-    if (platform_startup(&state, "Kamen Engine Sandbox", 150, 150, 1280, 720)) {
-        while (true) {
-            platform_pump_messages(&state);
-        }
-    }
-    platform_shutdown(&state);
+    application_create(&config);
+    application_run();
+
     return 0;
 }
